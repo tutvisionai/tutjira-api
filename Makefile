@@ -17,11 +17,19 @@ up-compose:
 
 # instalando composer
 composer-install:
-	@composer install
+	@composer install --optimize-autoloader --no-dev
 
 # gerando chave
 generate:
 	@php artisan key:generate
+
+# cacheando configuração
+cache-config:
+	@php artisan config:cache
+
+# cacheando rotas
+cache-route:
+	@php artisan route:cache
 
 # realizando a migration
 migrate:
@@ -32,4 +40,4 @@ serve:
 	@php artisan serve
 
 # Alvo principal que executa todos os alvos acima
-all: build-image project up-compose composer-install generate migrate serve
+all: build-image project up-compose composer-install generate cache-config cache-route migrate serve
